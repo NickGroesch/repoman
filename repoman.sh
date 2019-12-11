@@ -1,12 +1,10 @@
 #!/bin/bash
 # read the config file and grab the sourced and destined variables (for paths)
 . repoman.cfg
-echo $sourced
-echo $destined
-directory= pwd
-#echo "$#"
-echo $directory
-sft=0
+echo sourced $sourced
+echo destined $destined
+
+sft=0 #shift counter
 for i in "$@"
 do 
     case $i in
@@ -17,7 +15,7 @@ do
         -s|--solved)
             echo we gonna copy the solve ones
             ;;            
-        -f|--from)
+        -f|--from) #need logic to grab filename values
             echo we gonna change where from
             ;;
         -t|--to)
@@ -41,5 +39,14 @@ do
 echo $j
 done
 
+#rsync --exclude==g $sourced $destined
+rsync -r --exclude "solved" --exclude "solution" $sourced $destined
+# ftc=0 #file to copy counter
+# found= find -L $sourced -print
+# for each in $found
+# do
+# ((fts++))
+# echo $each $ftc #
+# done
 exit 0
 
